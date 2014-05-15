@@ -3,7 +3,7 @@
 @model int
 @{
     var dbContext = Context.GetContainer().GetInstance<ApplicationDbContext>();
-    var availableCategories = dbContext.Categories.Select(c => new SelectListItem
+    var availableCategories = dbContext.Categories.OrderBy(x => x.Name).Select(c => new SelectListItem
     {
         Text = c.Name,
         Value = c.CategoryId.ToString(),

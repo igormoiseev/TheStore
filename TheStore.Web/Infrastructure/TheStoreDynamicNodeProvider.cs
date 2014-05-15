@@ -56,7 +56,7 @@ namespace TheStore.Web.Infrastructure
                             {
                                 var productDynamicNode = new DynamicNode
                                 {
-                                    Key = "product_" + product.CategoryId,
+                                    Key = "product_" + product.ProductId,
                                     ParentKey = subCategoryDynamicNode.Key,
                                     Title = product.Name
                                 };
@@ -89,7 +89,7 @@ namespace TheStore.Web.Infrastructure
                     {
                         var productDynamicNode = new DynamicNode
                         {
-                            Key = "product_" + product.CategoryId,
+                            Key = "product_" + product.ProductId,
                             ParentKey = categoryDynamicNode.Key,
                             Title = product.Name
                         };
