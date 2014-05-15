@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TheStore.Web.Domain.Product>
+
+@foreach (var product in Model)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                @if (product.Photos != null && product.Photos.Count > 0)
+                {
+                    <img src="@product.Photos.First().Src" alt="@product.Photos.First().Alt" />
+                }
+                else
+                {
+                    <img src="http://placehold.it/300x300" alt="" />
+                }
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="caption">
+                <h4><a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">@product.Name (@product.Code)</a></h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-success">
+                            <div class="panel-heading text-center">
+                                ЕСТЬ В НАЛИЧИИ
+                            </div>
+                            <div class="panel-body">
+                                @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+                                {
+                                    @Html.Hidden("productId", product.ProductId)
+                                    @Html.Hidden("returnUrl", ViewContext.HttpContext.Request.Url.PathAndQuery)
+                                    <span class="btn btn-info" role="button"><strong>@product.GetProductPrice() грн.</strong></span> <input type="submit" value=" В корзину! " class="btn btn-success" />
+                                }
+                            </div>
+                        </div>
+                        <p>
+                            <ul class="list-unstyled small">
+                                @foreach (var option in product.Options)
+                                {
+                                    <li>
+                                        <strong>@option.Characteristic.Name : </strong> @option.Name
+                                    </li>
+                                }
+                            </ul>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <small>@product.Description.Substring(0, 300) <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">... подробнее &raquo;</a></small>
+                    </div>
+                </div>
+                <p>
+
+                </p>
+            </div>
+        </div>
+    </div>
+    <hr />
+}

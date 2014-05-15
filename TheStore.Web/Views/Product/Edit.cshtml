@@ -1,0 +1,83 @@
+﻿@model TheStore.Web.Models.Product.EditProductForm
+@{
+    ViewBag.Title = string.Format("Редактирование товара \"{0}\"", Model.Name);
+}
+
+<h2>Редактирование товара &laquo;@Model.Name&raquo;</h2>
+<hr />
+
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    @Html.HiddenFor(x => x.ProductId)
+    <div class="form-group">
+        @Html.LabelFor(x => x.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.Name)
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Code, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.Code)
+            @Html.ValidationMessageFor(x => x.Code)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Url, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.Url)
+            @Html.ValidationMessageFor(x => x.Url)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.InitialPrice, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.InitialPrice)
+            @Html.ValidationMessageFor(x => x.InitialPrice)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.ProductFee, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.ProductFee)
+            @Html.ValidationMessageFor(x => x.ProductFee)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.DeliveryCharge, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.DeliveryCharge)
+            @Html.ValidationMessageFor(x => x.DeliveryCharge)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.BrandId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.BrandId)
+            @Html.ValidationMessageFor(x => x.BrandId)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.CategoryId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.CategoryId)
+            @Html.ValidationMessageFor(x => x.CategoryId)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.Description)
+            @Html.ValidationMessageFor(x => x.Description)
+        </div>
+    </div>
+    @Html.EditorFor(x => x.Options)
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Сохранить товар" class="btn btn-primary" />
+        </div>
+    </div>
+}

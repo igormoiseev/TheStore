@@ -1,0 +1,15 @@
+﻿@using TheStore.Web.Data
+@using TheStore.Web.Infrastructure
+@model int
+@{
+    var dbContext = Context.GetContainer().GetInstance<ApplicationDbContext>();
+    var availableCategories = dbContext.Categories.Select(c => new SelectListItem
+    {
+        Text = c.Name,
+        Value = c.CategoryId.ToString(),
+        Selected = Model == c.CategoryId
+    });
+}
+
+@Html.DropDownList("", availableCategories, new {@class = "form-control"})
+

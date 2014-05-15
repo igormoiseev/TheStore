@@ -1,0 +1,14 @@
+﻿@using TheStore.Web.Data
+@using TheStore.Web.Infrastructure
+@model int
+@{
+    var dbContext = Context.GetContainer().GetInstance<ApplicationDbContext>();
+    var availableBrands = dbContext.Brands.OrderBy(x => x.Name).Select(c => new SelectListItem
+    {
+        Text = c.Name,
+        Value = c.BrandId.ToString(),
+        Selected = Model == c.BrandId
+    });
+}
+
+@Html.DropDownList("", availableBrands, new { @class = "form-control" })

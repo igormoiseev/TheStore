@@ -1,0 +1,86 @@
+﻿@model TheStore.Web.Models.Photo.NewPhotoForm
+@{
+    ViewBag.Title = "Фотографии " + @Model.ProductName;
+}
+
+<h2>Фотографии &laquo;@Model.ProductName&raquo;</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm("New", "Photo", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+
+            @Html.HiddenFor(x => x.ProductId)
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Alt</label>
+                <div class="col-md-10">
+                    <input type="text" id="Alt" name="Photos[0].Alt" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Название</label>
+                <div class="col-md-10">
+                    <input type="text" id="Title" name="Photos[0].Title" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Описание</label>
+                <div class="col-md-10">
+                    <input type="text" id="Description" name="Photos[0].Description" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <input type="file" name="UploadedImage" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <input type="submit" value="Добавить изображение" class="btn btn-success" />
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+        @foreach (var photo in Model.Photos)
+        {
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-4">
+                        <img src="@photo.Src" alt="@photo.Alt" style="width: 140px; height: 140px" class="img-thumbnail" />
+                    </div>
+                    <div class="col-md-8">
+                        <table class="table table-striped">
+                            <tr>
+                                <td class="text-right"><strong>Название</strong></td>
+                                <td class="text-center">@photo.Name</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><strong>Alt</strong></td>
+                                <td class="text-center">@photo.Alt</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"><strong>Описание</strong></td>
+                                <td class="text-center">@photo.Description</td>
+                            </tr>
+                        </table>
+                        <p class="text-right">
+                            <a class='btn btn-info btn-sm' href="@Url.Action("Edit", "Photo", new { id = photo.PhotoId})"><span class="glyphicon glyphicon-edit"></span> Редактировать</a>
+                            <a href="@Url.Action("Delete", "Photo", new { id = photo.PhotoId })" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Удалить</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

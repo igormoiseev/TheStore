@@ -1,0 +1,108 @@
+﻿@model TheStore.Web.Models.ShoppingCart.ShoppingCartViewModel
+@{
+    ViewBag.Title = "Корзина";
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                    Корзина
+                </strong>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Товар</th>
+                            <th class="text-center">Количество</th>
+                            <th class="text-center">Цена</th>
+                            <th class="text-center">Сумма</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cartItem in Model.ShoppingCart.CartItems)
+                        {
+                            <tr>
+                                <td class="col-md-6">
+                                    <div class="media">
+                                        <a class="thumbnail pull-left" href="#">
+                                            @if (@cartItem.Product.Photos.Any())
+                                            {
+                                                <img class="media-object" src="@cartItem.Product.Photos.First().Src" style="width: 72px; height: 72px;" />
+                                            }
+                                            else
+                                            {
+                                                <img class="media-object" src="http://placehold.it/72x72" style="width: 72px; height: 72px;" />
+                                            }
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="@Url.Action("View", "Product", new { categoryUrl = cartItem.Product.Category.CategoryUrl, brandUrl = cartItem.Product.Brand.BrandUrl, productUrl = cartItem.Product.Url })">@cartItem.Product.Name (@cartItem.Product.Code)</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="col-md-1 text-center">
+                                    <div class="row">
+                                        <div class="form-inline">
+                                            @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post, new { @class = "form-inline" }))
+                                            {
+                                                @Html.Hidden("ProductId", cartItem.Product.ProductId)
+                                                @Html.Hidden("returnUrl", Model.ReturnUrl)
+                                                <button type="submit" class="btn btn-info btn-xs" title="Больше"><span class="glyphicon glyphicon-plus"></span></button>
+                                            }
+                                            <button type="button" class="btn btn-default btn-sm" disabled="disabled"><strong>@cartItem.Quantity</strong></button>
+                                            @using (Html.BeginForm("RemoveItem", "ShoppingCart", FormMethod.Post, new { @class = "form-inline" }))
+                                            {
+                                                @Html.Hidden("productId", cartItem.Product.ProductId)
+                                                @Html.Hidden("returnUrl", Model.ReturnUrl)
+                                                <button type="submit" class="btn btn-info btn-xs" title="Меньше"><span class="glyphicon glyphicon-minus"></span></button>
+                                            }
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="col-md-2 text-center">
+                                    <strong>@cartItem.Product.GetProductPrice() <small>грн.</small></strong>
+                                </td>
+                                <td class="col-md-2 text-center">
+                                    <strong>@(cartItem.Product.GetProductPrice() * cartItem.Quantity) <small>грн.</small></strong>
+                                </td>
+                                <td class="col-md-1">
+                                    @using (Html.BeginForm("RemoveFromCart", "ShoppingCart", FormMethod.Post))
+                                    {
+                                        @Html.Hidden("ProductId", cartItem.Product.ProductId)
+                                        @Html.Hidden("returnUrl", Model.ReturnUrl)
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Удалить товар из корзины">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+
+                        }
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center"><strong>Итого:</strong></td>
+                            <td class="text-center"><strong>@Model.ShoppingCart.GetTotalPrice() <small>грн.</small></strong></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer text-right">
+                <a href="@Model.ReturnUrl" class="btn btn-default">
+                    <span class="glyphicon glyphicon-shopping-cart"></span> Продолжить покупки
+                </a>
+                <a href="@Url.Action("Checkout", "Order", new {returnUrl = Model.ReturnUrl})" class="btn btn-success">
+                    Оформить заказ <span class="glyphicon glyphicon-play"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        @Html.Action("QuickOrder", "Order", new { returnUrl = Model.ReturnUrl })
+    </div>
+</div>

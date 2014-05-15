@@ -1,0 +1,41 @@
+﻿@model IEnumerable<TheStore.Web.Domain.Characteristic>
+
+@{
+    ViewBag.Title = "Управление характеристиками";
+}
+
+<h2>Характеристики</h2>
+<hr/>
+<p>
+    <a href="@Url.Action("New", "Characteristic")"><span class="glyphicon glyphicon-plus-sign"></span> Добавить характеристику</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Название</th>
+            <th>URL</th>
+            <th>Номер</th>
+            <th>Фильтр</th>
+            <th>Описание</th>
+            <th class="text-center">Редактировать / Удалить</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var characteristic in @Model)
+        {
+            <tr>
+                <td>@characteristic.CharacteristicId</td>
+                <td>@characteristic.Name</td>
+                <td>@characteristic.Url</td>
+                <td>@characteristic.SequenceNumber</td>
+                <td>@characteristic.IsFilterable</td>
+                <td>@characteristic.Description</td>
+                <td class="text-center">
+                    <a class='btn btn-info btn-sm' href="@Url.Action("Edit", "Characteristic", new { id = characteristic.CharacteristicId })"><span class="glyphicon glyphicon-edit"></span> Редактировать</a>
+                    <a href="@Url.Action("Delete", "Characteristic", new { id = characteristic.CharacteristicId })" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

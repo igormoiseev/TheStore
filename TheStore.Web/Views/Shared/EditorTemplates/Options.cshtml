@@ -1,0 +1,23 @@
+﻿@using TheStore.Web.Data
+@using TheStore.Web.Infrastructure
+@model List<TheStore.Web.Domain.Option>
+@{
+    var dbContext = Context.GetContainer().GetInstance<ApplicationDbContext>();
+    var availableOptions = dbContext.Options.ToList();
+}
+
+@for (var i = 0; i < 7; i++)
+{
+    <div class="form-group">
+        <label class="col-md-2 control-label">Характеристика @(i + 1)</label>
+        <div class="col-md-10">
+            <select id="Options[@i].OptionId" name="Options[@i].OptionId" class="form-control">
+                <option value="0">Не выбрана</option>
+                @foreach (var option in availableOptions.OrderBy(o => o.Characteristic.Name).ThenBy(o => o.Name))
+                {
+                    <option value="@option.OptionId" @((Model.Count() > i) && (option.OptionId == Model[i].OptionId) ? "selected" : string.Empty)>@option.Characteristic.Name > @option.Name</option>
+                }
+            </select>
+        </div>
+    </div>
+}

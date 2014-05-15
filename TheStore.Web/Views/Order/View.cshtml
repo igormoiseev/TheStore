@@ -1,0 +1,146 @@
+﻿@using TheStore.Web.Domain
+@model Order
+@{
+    ViewBag.Title = "Ваш заказ";
+}
+
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>
+                    Заказ номер: @Model.OrderNumber
+                </strong>
+            </div>
+            <div class="panel-body">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="col-md-4 text-center">Дата</th>
+                            <th class="col-md-4 text-center">Сумма</th>
+                            <th class="col-md-4 text-center">Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center"><strong><i>@Model.CreatedAt</i></strong></td>
+                            <td class="text-center"><strong>@Model.GetOrderTotal() грн.</strong></td>
+                            <td class="text-center">
+                                @switch (Model.OrderState)
+                                {
+                                    case OrderState.New:
+                                        <span class="label label-primary">Получен</span>
+                                        break;
+                                    default:
+                                    <span class="label label-default">Неизвестен</span>
+                                        break;
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>
+                    Получатель
+                </strong>
+            </div>
+            <div class="panel-body">
+                <h4><i>@Model.Customer.FirstName @Model.Customer.LastName</i></h4>
+                <h4><small>Контактный телефон: <strong>@Model.Customer.Phone</strong></small></h4>
+                <h4>
+                    <small>
+                        Служба доставки: <strong>
+                            @switch (Model.DeliveryDetails.DeliveryType)
+                            {
+                                case DeliveryType.Courier:
+                                    <span>Курьер</span>
+                                    break;
+                                case DeliveryType.NovaPoshta:
+                                    <span>Новая Почта</span>
+                                    break;
+                                default:
+                                    <span>Новая Почта</span>
+                                    break;
+                            }
+                    </strong>
+                </small>
+            </h4>
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th class="col-md-4 text-center">Город</th>
+                        <th class="col-md-4 text-center">Улица</th>
+                        <th class="col-md-4 text-center">Дом</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center"><strong>@Model.DeliveryDetails.City</strong></td>
+                        <td class="text-center"><strong>@Model.DeliveryDetails.Street</strong></td>
+                        <td class="text-center"><strong>@Model.DeliveryDetails.HouseNumber</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+            <p>
+                <i>Примечания:</i> @Model.Description
+            </p>
+        </div>
+    </div>
+</div>
+<div class="col-md-5">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong>Были выбраны следующие товары</strong>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-md-8">Товар</th>
+                        <th class="col-md-2 text-center">Кол-во</th>
+                        <th class="col-md-2 text-center">Цена</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var orderItem in Model.OrderItems)
+                    {
+                        <tr>
+                            <td>
+                                <div class="media">
+                                    <a class="thumbnail pull-left" href="#">
+                                        @if (orderItem.Product.Photos.Any())
+                                        {
+                                            <img class="media-object" src="@orderItem.Product.Photos.First().Src" style="width: 72px; height: 72px;" />
+                                        }
+                                        else
+                                        {
+                                            <img class="media-object" src="http://placehold.it/72x72" style="width: 72px; height: 72px;" />
+                                        }
+                                    </a>
+                                    <div class="media-body">
+                                        <a href="@Url.Action("View", "Product", new { categoryUrl = orderItem.Product.Category.CategoryUrl, brandUrl = orderItem.Product.Brand.BrandUrl, productUrl = orderItem.Product.Url })">@orderItem.Product.Name (@orderItem.Product.Code)</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                @orderItem.Quantity шт.
+                            </td>
+                            <td class="text-center">
+                                @orderItem.Product.GetProductPrice() грн.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-footer text-center">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-default">Продолжить покупки</a>
+        </div>
+    </div>
+</div>
+</div>

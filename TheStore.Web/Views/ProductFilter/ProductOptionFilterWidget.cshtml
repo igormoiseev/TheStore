@@ -1,0 +1,29 @@
+﻿@model TheStore.Web.Models.ProductFilter.ProductOptionFilterViewModel
+
+<ul class="list-unstyled">
+    @foreach (var characteristic in Model.Characteristics)
+    {
+        <li>
+            <h4>@characteristic.Name</h4>
+            <ul class="list-unstyled">
+                @foreach (var option in characteristic.Options)
+                {
+                    <li>
+                        @using (Html.BeginForm("AddOption", "ProductFilter", FormMethod.Get))
+                        {
+
+                            @Html.Hidden("OptionId", option.OptionId)
+                            @Html.Hidden("ReturnUrl", ViewContext.HttpContext.Request.Url.PathAndQuery)
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" @(Model.Filter.Options.Any(x => x.OptionId == option.OptionId) ? "checked" : string.Empty) />
+                                    <a href="@Url.Action("AddOption", "ProductFilter", new { optionId = option.OptionId })">@option.Name</a>
+                                </label>
+                            </div>
+                        }
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

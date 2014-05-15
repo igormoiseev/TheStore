@@ -1,0 +1,54 @@
+﻿@model TheStore.Web.Models.Category.EditCategoryForm
+@{
+    ViewBag.Title = string.Format("Редактирование категории \"{0}\"", Model.Name);
+}
+
+<h2>Редактирование категории &laquo;@Model.Name&raquo;</h2>
+<hr/>
+
+@using (Html.BeginForm("Edit", "Category", FormMethod.Post, new {@class = "form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    @Html.HiddenFor(x => x.CategoryId)
+    <div class="form-group">
+        @Html.LabelFor(x => x.Name, new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(x => x.Name, new{@class = "form-control"})
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.CategoryUrl, new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(x => x.CategoryUrl, new{@class = "form-control"})
+            @Html.ValidationMessageFor(x => x.CategoryUrl)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.ParentCategoryId, new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.ParentCategoryId)
+            @Html.ValidationMessageFor(x => x.ParentCategoryId)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.SequenceNumber, new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(x => x.SequenceNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.SequenceNumber)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Description, new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextAreaFor(x => x.Description, new{@class = "form-control", rows = 7})
+            @Html.ValidationMessageFor(x => x.Description)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Сохранить категорию" class="btn btn-primary" />
+        </div>
+    </div>
+}

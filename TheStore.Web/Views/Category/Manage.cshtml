@@ -1,0 +1,41 @@
+﻿@model IEnumerable<TheStore.Web.Domain.Category>
+@{
+    ViewBag.Title = "Управление категориями товаров";
+}
+
+<h2>Категории</h2>
+<hr />
+<p>
+    <a href="@Url.Action("New", "Category")"><span class="glyphicon glyphicon-plus-sign"></span> Добавить новую категорию</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Название</th>
+            <th>URL</th>
+            <th class="text-center">Принадлежит категории</th>
+            <th>Порядковый номер</th>
+            <th>Описание</th>
+            <th class="text-center">Редактировать / Удалить</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in @Model)
+        {
+            <tr>
+                <td>@category.CategoryId</td>
+                <td>@category.Name</td>
+                <td>@category.CategoryUrl</td>
+                <td class="text-center">@(category.ParentCategory != null ? category.ParentCategory.Name : "-")</td>
+                <td>@category.SequenceNumber</td>
+                <td>@category.Description</td>
+                <td class="text-center">
+                    <a class='btn btn-info btn-sm' href="@Url.Action("Edit", "Category", new{ id = category.CategoryId })"><span class="glyphicon glyphicon-edit"></span> Редактировать</a>
+                    <a href="@Url.Action("Delete", "Category", new{ id = category.CategoryId })" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

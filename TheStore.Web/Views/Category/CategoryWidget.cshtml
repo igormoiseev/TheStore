@@ -1,0 +1,24 @@
+﻿@model TheStore.Web.Models.Category.CategoryWidgetViewModel
+
+@if (Model != null)
+{
+    <div class="row">
+        @foreach (var category in Model.Categories.Where(x => x.ParentCategoryId == null).OrderBy(x => x.SequenceNumber))
+        {
+            <div class="col-md-3">
+                <h4><a href="@Url.Action("Index", "Category", new { categoryUrl = category.CategoryUrl })">@category.Name</a></h4>
+                <ul class="list-unstyled">
+                    @if (category.Categories.Any())
+                    {
+                        foreach (var subCategory in category.Categories.OrderBy(x => x.Name))
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "Category", new { categoryUrl = subCategory.CategoryUrl })">@subCategory.Name</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+}

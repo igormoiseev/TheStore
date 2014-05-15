@@ -1,0 +1,41 @@
+﻿@model TheStore.Web.Models.Order.QuickOrderForm
+
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <strong>
+                <span class="glyphicon glyphicon-flash"></span>
+                Быстрое оформление
+            </strong>
+        </div>
+        @using (Html.BeginForm("QuickOrder", "Order", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.ReturnUrl)
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Name, new {@class = "small"})
+                    @Html.EditorFor(x => x.Name)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Phone, new { @class = "small" })
+                    @Html.EditorFor(x => x.Phone)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Email, new { @class = "small" })
+                    @Html.EditorFor(x => x.Email)
+                </div>
+            </div>
+            <div class="panel-footer text-center">
+                <button type="submit" class="btn btn-info">
+                    Заказ подтверждаю
+                </button>
+            </div>
+        }
+    </div>
+    <h4 class="text-center"><span class="glyphicon glyphicon-hand-up"></span>  Как это работает?</h4>
+    <p class="text-info text-justify">
+        Если Вы не любите заполнять скучные формы - отлично! Достаточно просто указать свой контактный номер телефона, и уже через пару минут наш менеджер свяжется с Вами,
+        чтобы уточнить все вопросы по доставке, выбранных Вами товаров.
+    </p>
+</div>

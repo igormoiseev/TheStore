@@ -1,0 +1,20 @@
+﻿@model TheStore.Web.Models.ProductFilter.ProductFilterBrandViewModel
+
+<ul class="list-unstyled">
+    @foreach (var brand in Model.Brands)
+    {
+        <li>
+            @using (Html.BeginForm("AddBrand", "ProductFilter", FormMethod.Get))
+            {
+                @Html.Hidden("BrandId", brand.BrandId)
+                @Html.Hidden("ReturnUrl", ViewContext.HttpContext.Request.Url.PathAndQuery)
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="" @(Model.Filter.Brands.Any(x => x.BrandId == brand.BrandId) ? "checked" : string.Empty)/>
+                        <a href="@Url.Action("AddBrand", "ProductFilter", new { brandId = brand.BrandId })">@brand.Name</a>
+                    </label>
+                </div>
+            }
+        </li>
+    }
+</ul>

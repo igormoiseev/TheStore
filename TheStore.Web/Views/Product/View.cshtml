@@ -1,0 +1,96 @@
+﻿@model TheStore.Web.Domain.Product
+@{
+    ViewBag.Title = @Model.Name;
+}
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.Action("ProductFilterWidget", "ProductFilter", new {categoryUrl = Model.Category.CategoryUrl})
+    </div>
+    <div class="col-md-9">
+        @Html.MvcSiteMap().SiteMapPath()
+        <h2>@Model.Name</h2>
+        <div class="label label-info">Код: @Model.Code</div>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="product-img">
+                    @if (@Model.Photos != null && Model.Photos.Count > 0)
+                    {
+                        <img src="@Model.Photos.First().Src" id="mainImage" class="thumbnail img-responsive" />
+                    }
+                    else
+                    {
+                        <img src="http://placehold.it/300x300" class="thumbnail img-responsive" />
+                    }
+                </div>
+                <br />
+                <ul class="list-unstyled list-inline text-center">
+                    @foreach (var photo in Model.Photos)
+                    {
+                        <li>
+                            <a href="#mainImage" class="thumbnail">
+                                <img src="@photo.Src" alt="@photo.Alt" style="width: 70px; height: 70px;" />
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="col-md-6">
+
+                <div class="panel panel-success">
+                    <div class="panel-heading text-center">
+                        ЕСТЬ В НАЛИЧИИ
+                    </div>
+                    <div class="panel-body">
+                        @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+                        {
+                            @Html.Hidden("productId", Model.ProductId)
+                            @Html.Hidden("returnUrl", ViewContext.HttpContext.Request.Url.PathAndQuery)
+                            <span class="btn btn-info btn-lg" role="button"><strong>@Model.GetProductPrice() грн.</strong></span>    <input type="submit" value=" В корзину! " class="btn btn-success btn-lg" />
+                        }
+                    </div>
+                </div>
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#all" data-toggle="tab">Все</a></li>
+                    <li><a href="#description" data-toggle="tab">Описание</a></li>
+                    <li><a href="#characteristics" data-toggle="tab">Характеристики</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="all">
+                        <br />
+                        <ul class="list-unstyled">
+                            @foreach (var option in Model.Options)
+                            {
+                                <li><strong>@option.Characteristic.Name : </strong>@option.Name</li>
+                            }
+                        </ul>
+                        <p>@Model.Description</p>
+                    </div>
+                    <div class="tab-pane" id="description">
+                        <br />
+                        <p>@Model.Description</p>
+                    </div>
+                    <div class="tab-pane" id="characteristics">
+                        <br />
+                        <table class="table table-striped table-bordered">
+                            @foreach (var option in Model.Options)
+                            {
+                                <tr>
+                                    <td class="text-right">
+                                        <strong>@option.Characteristic.Name</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        @option.Name
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+﻿@using TheStore.Web.Data
+@using TheStore.Web.Infrastructure
+@model int
+@{
+    var dbContext = Context.GetContainer().GetInstance<ApplicationDbContext>();
+    var availableCharacteristics = dbContext.Characteristics.Select(c => new SelectListItem
+    {
+        Text = c.Name,
+        Value = c.CharacteristicId.ToString(),
+        Selected = Model == c.CharacteristicId
+    });
+}
+
+@Html.DropDownList("", availableCharacteristics, new { @class = "form-control" })
+

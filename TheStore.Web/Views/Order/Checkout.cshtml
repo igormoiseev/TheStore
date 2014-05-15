@@ -1,0 +1,132 @@
+﻿@model TheStore.Web.Models.Order.OrderCheckoutViewModel
+@{
+    ViewBag.Title = "Оформление заказа";
+}
+
+<div class="row">
+    @using (Html.BeginForm("Checkout", "Order", FormMethod.Post))
+    {
+        <div class="col-md-7">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Контактная информация
+                </div>
+
+                @Html.AntiForgeryToken()
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <small>@Html.LabelFor(x => x.FirstName)</small>
+                            @Html.EditorFor(x => x.FirstName)
+                            @Html.ValidationMessageFor(x => x.FirstName)
+                        </div>
+                        <div class="form-group">
+                            <small>@Html.LabelFor(x => x.LastName)</small>
+                            @Html.EditorFor(x => x.LastName)
+                            @Html.ValidationMessageFor(x => x.LastName)
+                        </div>
+                        <div class="form-group">
+                            <small>@Html.LabelFor(x => x.Phone)</small>
+                            @Html.EditorFor(x => x.Phone)
+                            @Html.ValidationMessageFor(x => x.Phone)
+                        </div>
+                        <div class="form-group">
+                            <small>@Html.LabelFor(x => x.Email)</small>
+                            @Html.EditorFor(x => x.Email)
+                            @Html.ValidationMessageFor(x => x.Email)
+                        </div>
+                        <div class="form-group">
+                            <small>@Html.LabelFor(x => x.Description)</small>
+                            @Html.EditorFor(x => x.Description)
+                            @Html.ValidationMessageFor(x => x.Description)
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Доставить по адресу</h4>
+                        <hr />
+                        <div class="form-group">
+                            <small>@Html.LabelFor(x => x.City)</small>
+                            @Html.EditorFor(x => x.City)
+                            @Html.ValidationMessageFor(x => x.City)
+                        </div>
+                        <div class="form-group">
+                            <small>@Html.LabelFor(x => x.Street)</small>
+                            @Html.EditorFor(x => x.Street)
+                            @Html.ValidationMessageFor(x => x.Street)
+                        </div>
+                        <div class="form-group">
+                            <small>@Html.LabelFor(x => x.HouseNumber)</small>
+                            @Html.EditorFor(x => x.HouseNumber)
+                            @Html.ValidationMessageFor(x => x.HouseNumber)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Выбранные товары</strong></div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-md-7">Товар</th>
+                                <th class="col-md-3"></th>
+                                <th class="col-md-2">Сумма</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cartItem in Model.ShoppingCart.CartItems)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="media">
+                                            <a class="thumbnail pull-left" href="#">
+                                                @if (cartItem.Product.Photos.Any())
+                                                {
+                                                    <img class="media-object" src="@cartItem.Product.Photos.First().Src" style="width: 50px; height: 50px;" />
+                                                }
+                                                else
+                                                {
+                                                    <img class="media-object" src="http://placehold.it/50x50" style="width: 50px; height: 50px;" />
+                                                }
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="@Url.Action("View", "Product", new { categoryUrl = cartItem.Product.Category.CategoryUrl, brandUrl = cartItem.Product.Brand.BrandUrl, productUrl = cartItem.Product.Url })">@cartItem.Product.Name (@cartItem.Product.Code)</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><small>@cartItem.Product.GetProductPrice() x @cartItem.Quantity</small></td>
+                                    <td><small>@(cartItem.Product.GetProductPrice() * cartItem.Quantity) грн.</small></td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="2" class="text-right">
+                                    <strong>Доставка:</strong>
+                                </td>
+                                <td>
+                                    <strong>@Model.ShoppingCart.GetDeliveryPrice() грн.</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="text-right">
+                                    <strong>Итого:</strong>
+                                </td>
+                                <td>
+                                    <strong>@Model.ShoppingCart.GetTotalPrice() грн.</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer text-center">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        Заказ подтверждаю!
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

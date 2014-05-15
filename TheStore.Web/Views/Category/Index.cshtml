@@ -1,0 +1,16 @@
+﻿@model TheStore.Web.Models.Category.CategoryViewModel
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.Action("ProductFilterWidget", "ProductFilter", new {categoryUrl = Model.CategoryUrl})
+    </div>
+    <div class="col-md-9">
+        @Html.MvcSiteMap().SiteMapPath()
+        <h3>@Model.Name</h3>
+        <hr/>
+        @Html.Action("ProductListWidget", "Product", new { categoryUrl = Model.CategoryUrl })
+    </div>
+</div>

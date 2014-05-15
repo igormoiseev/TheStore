@@ -1,0 +1,18 @@
+﻿@model TheStore.Web.Domain.ShoppingCart
+
+@if (Model.GetTotalQuantity() > 0)
+{
+    <a href="@Url.Action("ShowCart", "ShoppingCart", new { returnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery })"><span class="glyphicon glyphicon-shopping-cart"></span> @Model.GetTotalQuantity() товаров</a>
+    @*using (Html.BeginForm("ShowCart", "ShoppingCart", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("returnUrl", ViewContext.HttpContext.Request.Url.PathAndQuery)
+        <button type="submit" class="btn btn-success btn-xs">
+            <span class="glyphicon glyphicon-shopping-cart"></span> @Model.GetTotalQuantity() товаров
+        </button>
+    }*@
+}
+else
+{
+    <span class="glyphicon glyphicon-shopping-cart"></span> <span>Корзина пуста</span>
+}

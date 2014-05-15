@@ -1,0 +1,39 @@
+﻿@model IEnumerable<TheStore.Web.Domain.Option>
+
+@{
+    ViewBag.Title = "Управление опциями";
+}
+
+<h2>Опции</h2>
+<hr />
+<p>
+    <a href="@Url.Action("New", "Option")"><span class="glyphicon glyphicon-plus-sign"></span> Добавить опцию</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Название</th>
+            <th>URL</th>
+            <th>Принадлежит характеристике</th>
+            <th>Описание</th>
+            <th class="text-center">Редактировать / Удалить</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var option in @Model)
+        {
+            <tr>
+                <td>@option.OptionId</td>
+                <td>@option.Name</td>
+                <td>@option.Url</td>
+                <td>@option.Characteristic.Name</td>
+                <td>@option.Description</td>
+                <td class="text-center">
+                    <a class='btn btn-info btn-sm' href="@Url.Action("Edit", "Option", new { id = option.OptionId })"><span class="glyphicon glyphicon-edit"></span> Редактировать</a>
+                    <a href="@Url.Action("Delete", "Option", new { id = option.OptionId })" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,60 @@
+﻿@model TheStore.Web.Models.Characteristic.NewCharacteristicForm
+@{
+    ViewBag.Title = "Новая характеристика";
+}
+
+<h2>Новая характеристика</h2>
+<hr />
+@using (Html.BeginForm("New", "Characteristic", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <div class="form-group">
+        @Html.LabelFor(x => x.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.Name)
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Url, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.Url)
+            @Html.ValidationMessageFor(x => x.Url)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.CategoryId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.CategoryId)
+            @Html.ValidationMessageFor(x => x.Url)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.SequenceNumber, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.SequenceNumber)
+            @Html.ValidationMessageFor(x => x.SequenceNumber)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.IsFilterable, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.CheckBoxFor(x => x.IsFilterable)
+            @Html.ValidationMessageFor(x => x.IsFilterable)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.Description)
+            @Html.ValidationMessageFor(x => x.Description)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Добавить характеристику" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
