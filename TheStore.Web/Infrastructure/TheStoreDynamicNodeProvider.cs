@@ -67,17 +67,17 @@ namespace TheStore.Web.Infrastructure
                                 productDynamicNode.Controller = "Product";
                                 nodes.Add(productDynamicNode);
 
-                                var brandDynamicNode = new DynamicNode
-                                {
-                                    Key = "brand_" + product.Brand.BrandId,
-                                    ParentKey = subCategoryDynamicNode.Key,
-                                    Title = product.Brand.Name
-                                };
-                                brandDynamicNode.RouteValues.Add("categoryUrl", product.Category.CategoryUrl);
-                                brandDynamicNode.RouteValues.Add("brandUrl", product.Brand.BrandUrl);
-                                brandDynamicNode.Action = "Index";
-                                brandDynamicNode.Controller = "Brand";
-                                nodes.Add(brandDynamicNode);
+                                //var brandDynamicNode = new DynamicNode
+                                //{
+                                //    Key = "brand_" + product.Brand.BrandId,
+                                //    ParentKey = subCategoryDynamicNode.Key,
+                                //    Title = product.Brand.Name
+                                //};
+                                //brandDynamicNode.RouteValues.Add("categoryUrl", product.Category.CategoryUrl);
+                                //brandDynamicNode.RouteValues.Add("brandUrl", product.Brand.BrandUrl);
+                                //brandDynamicNode.Action = "Index";
+                                //brandDynamicNode.Controller = "Brand";
+                                //nodes.Add(brandDynamicNode);
                             }
                         }
                     }
@@ -100,17 +100,17 @@ namespace TheStore.Web.Infrastructure
                         productDynamicNode.Controller = "Product";
                         nodes.Add(productDynamicNode);
 
-                        var brandDynamicNode = new DynamicNode
-                        {
-                            Key = "brand_" + product.Brand.BrandId,
-                            ParentKey = categoryDynamicNode.Key,
-                            Title = product.Brand.Name
-                        };
-                        brandDynamicNode.RouteValues.Add("categoryUrl", product.Category.CategoryUrl);
-                        brandDynamicNode.RouteValues.Add("brandUrl", product.Brand.BrandUrl);
-                        brandDynamicNode.Action = "Index";
-                        brandDynamicNode.Controller = "Brand";
-                        nodes.Add(brandDynamicNode);
+                        //var brandDynamicNode = new DynamicNode
+                        //{
+                        //    Key = "brand_" + product.Brand.BrandId,
+                        //    ParentKey = categoryDynamicNode.Key,
+                        //    Title = product.Brand.Name
+                        //};
+                        //brandDynamicNode.RouteValues.Add("categoryUrl", product.Category.CategoryUrl);
+                        //brandDynamicNode.RouteValues.Add("brandUrl", product.Brand.BrandUrl);
+                        //brandDynamicNode.Action = "Index";
+                        //brandDynamicNode.Controller = "Brand";
+                        //nodes.Add(brandDynamicNode);
                     }
                 }
             }
