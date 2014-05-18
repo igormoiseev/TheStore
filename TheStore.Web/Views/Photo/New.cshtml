@@ -36,6 +36,14 @@
             </div>
 
             <div class="form-group">
+                @Html.LabelFor(x => x.ColorId)
+                <div class="col-md-10">
+                    @Html.EditorFor(x => x.ColorId)
+                    @Html.ValidationMessageFor(x => x.ColorId)
+                </div>
+            </div>
+
+            <div class="form-group">
                 <div class="col-md-10 col-md-offset-2">
                     <input type="file" name="UploadedImage" />
                 </div>
@@ -53,7 +61,7 @@
         {
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    
+
                 </div>
                 <div class="panel-body">
                     <div class="col-md-4">

@@ -404,6 +404,18 @@ namespace TheStore.Web
             }
 
             #endregion
+
+            #region Colors
+
+            if (!_context.Colors.Any())
+            {
+                _context.Colors.Add(new Color {Name = "Красный"});
+                _context.Colors.Add(new Color { Name = "Голубой" });
+
+                _context.SaveChanges();
+            }
+
+            #endregion
         }
     }
 }

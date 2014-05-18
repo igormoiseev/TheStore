@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -45,28 +46,37 @@ namespace TheStore.Web.Controllers
         public ActionResult ProductListWidget(ProductFilter productFilter, string categoryUrl, string brandUrl)
         {
             var category = _context.Categories.Include(x => x.Categories).SingleOrDefault(x => x.CategoryUrl == categoryUrl);
+            var brand = _context.Brands.SingleOrDefault(x => x.BrandUrl == brandUrl);
             var availableProducts = new List<Product>();
 
-            if (category != null)
+            if (category == null)
             {
-                if(category.Products.Any())
-                    availableProducts.AddRange(category.Products);
-                
-                if (category.Categories.Any())
-                {
-                    foreach (var subCategory in category.Categories)
-                    {
-                        if(subCategory.Products.Any())
-                            availableProducts.AddRange(subCategory.Products);
-                    }
-                }
-                var model = productFilter.Filter(availableProducts);
-            
-                return PartialView(model);
+                return
+                    this.RedirectToAction<HomeController>(x => x.Index())
+                        .WithError(string.Format(
+                            "Категория товаров c URL ({0}) не найдена. Возможно она была удалена.", categoryUrl));
             }
-            return
-                this.RedirectToAction<HomeController>(x => x.Index())
-                    .WithError(string.Format("Категория товаров c URL ({0}) не найдена. Возможно она была удалена.", categoryUrl));
+
+            if (category.Products.Any())
+                availableProducts.AddRange(category.Products);
+
+            if (category.Categories.Any())
+            {
+                foreach (var subCategory in category.Categories)
+                {
+                    if (subCategory.Products.Any())
+                        availableProducts.AddRange(subCategory.Products);
+                }
+            }
+
+            if (brand != null)
+            {
+                availableProducts = availableProducts.Where(x => x.Brand.BrandId == brand.BrandId).ToList();
+            }
+
+            var model = productFilter.Filter(availableProducts);
+
+            return PartialView(model);
         }
 
         public ActionResult Manage()
@@ -110,6 +120,7 @@ namespace TheStore.Web.Controllers
                 ProductFee = form.ProductFee,
                 DeliveryCharge = form.DeliveryCharge,
                 BrandId = form.BrandId,
+                CreatedAt = DateTime.UtcNow,
                 Description = form.Description,
                 Url = form.Url,
                 CategoryId = form.CategoryId,

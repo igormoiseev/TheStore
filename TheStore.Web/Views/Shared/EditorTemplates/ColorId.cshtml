@@ -1,0 +1,14 @@
+﻿@using TheStore.Web.Data
+@using TheStore.Web.Infrastructure
+@model int
+@{
+    var dbContext = Context.GetContainer().GetInstance<ApplicationDbContext>();
+    var availableColors = dbContext.Colors.OrderBy(x => x.Name).Select(c => new SelectListItem
+    {
+        Text = c.Name,
+        Value = c.ColorId.ToString(),
+        Selected = Model == c.ColorId
+    });
+}
+
+@Html.DropDownList("", availableColors, new { @class = "form-control" })

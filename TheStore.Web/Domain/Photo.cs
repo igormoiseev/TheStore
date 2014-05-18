@@ -17,6 +17,8 @@ namespace TheStore.Web.Domain
         public bool? IsForFrontend { get; set; }
         public bool? IsForGallery { get; set; }
         public bool? IsForShoppingCart { get; set; }
+        public int ColorId { get; set; }
+        public virtual Color Color { get; set; }
         public virtual Product Product { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web;
 
 namespace TheStore.Web.Models.Photo
@@ -13,6 +14,11 @@ namespace TheStore.Web.Models.Photo
         public bool? IsForFrontend { get; set; }
         public bool? IsForGallery { get; set; }
         public bool? IsForShoppingCart { get; set; }
+
+        [Display(Name = "Цвет")]
+        [DataType("ColorId")]
+        public int ColorId { get; set; }
+
         public List<Domain.Photo> Photos { get; set; }
         public HttpPostedFileBase UploadedImage { get; set; }
     }

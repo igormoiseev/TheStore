@@ -70,6 +70,7 @@ namespace TheStore.Web.Controllers
                     Name = form.Name,
                     Alt = form.Alt,
                     Description = form.Description,
+                    ColorId = form.ColorId,
                     Src = string.Format("/Upload/Images/{0}", form.UploadedImage.FileName)
                 };
 

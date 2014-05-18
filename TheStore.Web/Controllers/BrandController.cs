@@ -21,6 +21,7 @@ namespace TheStore.Web.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public ActionResult Index(string brandUrl, string categoryUrl)
         {
             var brand = _context.Brands.FirstOrDefault(x => x.BrandUrl == brandUrl);

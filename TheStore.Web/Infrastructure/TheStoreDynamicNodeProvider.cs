@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Microsoft.Ajax.Utilities;
 using MvcSiteMapProvider;
 using TheStore.Web.Data;
+using TheStore.Web.Domain;
 
 namespace TheStore.Web.Infrastructure
 {
@@ -23,7 +25,10 @@ namespace TheStore.Web.Infrastructure
         public override IEnumerable<DynamicNode> GetDynamicNodeCollection(ISiteMapNode node)
         {
             var nodes = new List<DynamicNode>();
-            foreach (var category in _context.Categories.Include(x => x.Categories).Include(x => x.Products).Where(x => x.ParentCategoryId == null).ToList())
+            var products = new List<Product>();
+            var brands = new List<Brand>();
+
+            foreach (var category in _context.Categories.Include(x => x.Categories).Include(x => x.Products).Where(x => x.ParentCategory == null).ToList())
             {
                 var categoryDynamicNode = new DynamicNode
                 {
@@ -34,6 +39,27 @@ namespace TheStore.Web.Infrastructure
                 categoryDynamicNode.Action = "Index";
                 categoryDynamicNode.Controller = "Category";
                 nodes.Add(categoryDynamicNode);
+
+                if (category.Products.Any())
+                {
+                    products.AddRange(category.Products);
+
+                    foreach (var product in category.Products)
+                    {
+                        var productDynamicNode = new DynamicNode
+                                {
+                                    Key = "product_" + product.ProductId,
+                                    ParentKey = categoryDynamicNode.Key,
+                                    Title = product.Name
+                                };
+                        productDynamicNode.RouteValues.Add("categoryUrl", product.Category.CategoryUrl);
+                        productDynamicNode.RouteValues.Add("brandUrl", product.Brand.BrandUrl);
+                        productDynamicNode.RouteValues.Add("productUrl", product.Url);
+                        productDynamicNode.Action = "View";
+                        productDynamicNode.Controller = "Product";
+                        nodes.Add(productDynamicNode);
+                    }
+                }
 
                 if (category.Categories.Any())
                 {
@@ -52,6 +78,8 @@ namespace TheStore.Web.Infrastructure
 
                         if (subCategory.Products.Any())
                         {
+                            products.AddRange(subCategory.Products);
+
                             foreach (var product in subCategory.Products)
                             {
                                 var productDynamicNode = new DynamicNode
@@ -66,52 +94,43 @@ namespace TheStore.Web.Infrastructure
                                 productDynamicNode.Action = "View";
                                 productDynamicNode.Controller = "Product";
                                 nodes.Add(productDynamicNode);
+                            }
 
-                                //var brandDynamicNode = new DynamicNode
-                                //{
-                                //    Key = "brand_" + product.Brand.BrandId,
-                                //    ParentKey = subCategoryDynamicNode.Key,
-                                //    Title = product.Brand.Name
-                                //};
-                                //brandDynamicNode.RouteValues.Add("categoryUrl", product.Category.CategoryUrl);
-                                //brandDynamicNode.RouteValues.Add("brandUrl", product.Brand.BrandUrl);
-                                //brandDynamicNode.Action = "Index";
-                                //brandDynamicNode.Controller = "Brand";
-                                //nodes.Add(brandDynamicNode);
+                            brands = (from product in subCategory.Products select product.Brand).Distinct().ToList();
+
+                            foreach (var brand in brands)
+                            {
+                                var brandDynamicNode = new DynamicNode
+                                {
+                                    Key = string.Format("category_{0}_brand_{1}", subCategory.CategoryId, brand.BrandId),
+                                    ParentKey = subCategoryDynamicNode.Key,
+                                    Title = brand.Name
+                                };
+                                brandDynamicNode.RouteValues.Add("categoryUrl", subCategory.CategoryUrl);
+                                brandDynamicNode.RouteValues.Add("brandUrl", brand.BrandUrl);
+                                brandDynamicNode.Action = "Index";
+                                brandDynamicNode.Controller = "Brand";
+                                nodes.Add(brandDynamicNode);
                             }
                         }
                     }
                 }
 
-                if (category.Products.Any())
-                {
-                    foreach (var product in category.Products)
-                    {
-                        var productDynamicNode = new DynamicNode
-                        {
-                            Key = "product_" + product.ProductId,
-                            ParentKey = categoryDynamicNode.Key,
-                            Title = product.Name
-                        };
-                        productDynamicNode.RouteValues.Add("categoryUrl", product.Category.CategoryUrl);
-                        productDynamicNode.RouteValues.Add("brandUrl", product.Brand.BrandUrl);
-                        productDynamicNode.RouteValues.Add("productUrl", product.Url);
-                        productDynamicNode.Action = "View";
-                        productDynamicNode.Controller = "Product";
-                        nodes.Add(productDynamicNode);
+                brands = (from product in products select product.Brand).Distinct().ToList();
 
-                        //var brandDynamicNode = new DynamicNode
-                        //{
-                        //    Key = "brand_" + product.Brand.BrandId,
-                        //    ParentKey = categoryDynamicNode.Key,
-                        //    Title = product.Brand.Name
-                        //};
-                        //brandDynamicNode.RouteValues.Add("categoryUrl", product.Category.CategoryUrl);
-                        //brandDynamicNode.RouteValues.Add("brandUrl", product.Brand.BrandUrl);
-                        //brandDynamicNode.Action = "Index";
-                        //brandDynamicNode.Controller = "Brand";
-                        //nodes.Add(brandDynamicNode);
-                    }
+                foreach (var brand in brands)
+                {
+                    var brandDynamicNode = new DynamicNode
+                    {
+                        Key = string.Format("category_{0}_brand_{1}", category.CategoryId, brand.BrandId),
+                        ParentKey = categoryDynamicNode.Key,
+                        Title = brand.Name
+                    };
+                    brandDynamicNode.RouteValues.Add("categoryUrl", category.CategoryUrl);
+                    brandDynamicNode.RouteValues.Add("brandUrl", brand.BrandUrl);
+                    brandDynamicNode.Action = "Index";
+                    brandDynamicNode.Controller = "Brand";
+                    nodes.Add(brandDynamicNode);
                 }
             }
 

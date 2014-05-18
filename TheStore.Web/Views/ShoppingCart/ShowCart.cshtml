@@ -106,3 +106,20 @@
         @Html.Action("QuickOrder", "Order", new { returnUrl = Model.ReturnUrl })
     </div>
 </div>
+
+
+@section scripts
+{
+    <script>
+        $('#quickOrder').validate({
+            rules: {
+                Name: {
+                    required: true
+                },
+                Phone: {
+                    required: true
+                }
+            }
+        });
+    </script>
+}

@@ -8,13 +8,13 @@
                 Быстрое оформление
             </strong>
         </div>
-        @using (Html.BeginForm("QuickOrder", "Order", FormMethod.Post))
+        @using (Html.BeginForm("QuickOrder", "Order", FormMethod.Post, new { id = "quickOrder", name = "quickOrder" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.ReturnUrl)
             <div class="panel-body">
                 <div class="form-group">
-                    @Html.LabelFor(x => x.Name, new {@class = "small"})
+                    @Html.LabelFor(x => x.Name, new { @class = "small" })
                     @Html.EditorFor(x => x.Name)
                 </div>
                 <div class="form-group">

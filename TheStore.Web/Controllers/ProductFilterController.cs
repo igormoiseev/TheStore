@@ -20,9 +20,23 @@ namespace TheStore.Web.Controllers
 
         public ActionResult ProductFilterWidget(string categoryUrl)
         {
-            var category = _context.Categories.Include(x => x.Categories).Include(x => x.Products).FirstOrDefault(x => x.CategoryUrl == categoryUrl);
-            var model = new ProductFilterWidgetViewModel{Category = category, Brands = GetAvailableBrands(category)};
+            var category = _context.Categories.Include(x => x.Categories).Include(x => x.Products).SingleOrDefault(x => x.CategoryUrl == categoryUrl);
+            
+            var model = new ProductFilterWidgetViewModel { Category = category, Categories = GetAvailableCategories(category), Brands = GetAvailableBrands(category) };
             return PartialView(model);
+        }
+
+        private List<Category> GetAvailableCategories(Category category)
+        {
+            if (category.Categories.Any())
+                return category.Categories.ToList();
+            else
+            {
+                var parentCategory =
+                    _context.Categories.Include(x => x.Categories)
+                        .FirstOrDefault(x => x.CategoryId == category.ParentCategoryId);
+                return parentCategory.Categories.ToList();
+            }
         }
 
         private List<Brand> GetAvailableBrands(Category category)

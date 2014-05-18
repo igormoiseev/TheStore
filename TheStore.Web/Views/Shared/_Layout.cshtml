@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title | CHUVI</title>
     <link rel="shortcut icon" href="~/favicon.ico" />
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme-cerulean.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body>
     <div class="row">
@@ -28,7 +28,7 @@
                         <li>
                             @if (Request.IsAuthenticated)
                             {
-                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "form-inline" }))
+                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "nav navbar-form" }))
                                 {
                                     @Html.AntiForgeryToken()
                                     @Html.ActionLink("Привет, " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
@@ -37,14 +37,14 @@
                             }
                             else
                             {
-                                @*<a href="@Url.Action("Login", "Account")">
+                                <a href="@Url.Action("Login", "Account")">
                                     <span class="glyphicon glyphicon-log-in"></span> &nbsp;
                                     Вход в интернет-магазин
-                                </a>*@
+                                </a>
                             }
                         </li>
                         <li>
-                            <a href="#">@Html.Action("ShoppingCartWidget", "ShoppingCart")</a>
+                            @Html.Action("ShoppingCartWidget", "ShoppingCart")
                         </li>
                     </ul>
                     <div class="clearfix"></div>
@@ -161,9 +161,10 @@
             </div>
         </div>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    
+    <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

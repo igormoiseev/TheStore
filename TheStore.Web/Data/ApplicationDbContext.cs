@@ -38,6 +38,7 @@ namespace TheStore.Web.Data
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<DeliveryDetails> DeliveryDetails { get; set; }
+        public DbSet<Color> Colors { get; set; }
         public DbSet<ActionLog> ActionLogs { get; set; }
     }
 }

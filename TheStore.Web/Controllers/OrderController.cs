@@ -46,6 +46,9 @@ namespace TheStore.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult QuickOrder(ShoppingCart shoppingCart, QuickOrderForm form)
         {
+            if (!ModelState.IsValid)
+                return View(form);
+
             var order = new Order();
 
             order.OrderState = OrderState.QuickOrder;

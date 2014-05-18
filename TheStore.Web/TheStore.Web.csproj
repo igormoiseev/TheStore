@@ -203,6 +203,7 @@
     <Compile Include="Domain\ActionLog.cs" />
     <Compile Include="Domain\Characteristic.cs" />
     <Compile Include="Domain\CartItem.cs" />
+    <Compile Include="Domain\Color.cs" />
     <Compile Include="Domain\Customer.cs" />
     <Compile Include="Domain\DeliveryDetails.cs" />
     <Compile Include="Domain\IOrderSubmitter.cs" />
@@ -381,6 +382,7 @@
     <Content Include="Views\ProductFilter\ProductFilterWidget.cshtml" />
     <Content Include="Views\Home\ShippingAndPayment.cshtml" />
     <Content Include="Views\Home\Warranty.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ColorId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
