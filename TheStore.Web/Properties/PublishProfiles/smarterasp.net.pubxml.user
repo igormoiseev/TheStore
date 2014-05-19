@@ -14,13 +14,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/21/2014 15:37:18</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>05/15/2014 18:53:12</publishTime>
+      <publishTime>05/18/2014 23:12:17</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>05/15/2014 18:53:11</publishTime>
+      <publishTime>05/18/2014 23:12:17</publishTime>
     </File>
     <File Include="bin/App_global.asax.pdb">
-      <publishTime>05/15/2014 18:53:11</publishTime>
+      <publishTime>05/18/2014 23:12:17</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>04/23/2014 20:11:34</publishTime>
@@ -113,7 +113,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/21/2014 15:37:18</publishTime>
     </File>
     <File Include="bin/TheStore.Web.dll">
-      <publishTime>05/15/2014 15:45:56</publishTime>
+      <publishTime>05/19/2014 19:40:51</publishTime>
     </File>
     <File Include="bin/WebActivatorEx.dll">
       <publishTime>04/29/2014 17:56:38</publishTime>
@@ -129,6 +129,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/bootstrap.min.css">
       <publishTime>04/21/2014 15:37:14</publishTime>
+    </File>
+    <File Include="Content/font-awesome.css">
+      <publishTime>05/19/2014 19:05:48</publishTime>
+    </File>
+    <File Include="Content/font-awesome.min.css">
+      <publishTime>05/19/2014 19:05:48</publishTime>
     </File>
     <File Include="Content/Images/Baby-Stroller-icon.png">
       <publishTime>05/08/2014 13:18:05</publishTime>
@@ -152,10 +158,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/08/2014 14:52:27</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>05/08/2014 12:39:15</publishTime>
+      <publishTime>05/19/2014 18:58:01</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>04/21/2014 16:02:56</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.eot">
+      <publishTime>05/19/2014 19:05:47</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.svg">
+      <publishTime>05/19/2014 19:05:47</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.ttf">
+      <publishTime>05/19/2014 19:05:47</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.woff">
+      <publishTime>05/19/2014 19:05:47</publishTime>
+    </File>
+    <File Include="fonts/FontAwesome.otf">
+      <publishTime>05/19/2014 19:05:47</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.eot">
       <publishTime>04/21/2014 15:37:14</publishTime>
@@ -169,14 +190,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="fonts/glyphicons-halflings-regular.woff">
       <publishTime>04/21/2014 15:37:14</publishTime>
     </File>
+    <File Include="Global.asax">
+      <publishTime>04/21/2014 15:37:11</publishTime>
+    </File>
     <File Include="Mvc.sitemap">
       <publishTime>04/30/2014 18:48:48</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>04/29/2014 17:57:11</publishTime>
+      <publishTime>05/19/2014 19:05:48</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>05/15/2014 18:53:08</publishTime>
+      <publishTime>05/18/2014 23:12:13</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>04/21/2014 15:37:14</publishTime>
@@ -193,11 +217,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/jquery-1.10.2.min.map">
       <publishTime>04/21/2014 15:37:15</publishTime>
     </File>
+    <File Include="Scripts/jquery-2.1.1.js">
+      <publishTime>05/16/2014 10:21:18</publishTime>
+    </File>
+    <File Include="Scripts/jquery-2.1.1.min.js">
+      <publishTime>05/16/2014 10:21:18</publishTime>
+    </File>
+    <File Include="Scripts/jquery-2.1.1.min.map">
+      <publishTime>05/16/2014 10:21:17</publishTime>
+    </File>
     <File Include="Scripts/jquery.validate.js">
-      <publishTime>04/21/2014 15:37:21</publishTime>
+      <publishTime>05/16/2014 10:21:28</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.min.js">
-      <publishTime>04/21/2014 15:37:21</publishTime>
+      <publishTime>05/16/2014 10:21:28</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.unobtrusive.js">
       <publishTime>04/21/2014 15:37:21</publishTime>
@@ -215,7 +248,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/21/2014 15:37:18</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>04/21/2014 15:37:18</publishTime>
+      <publishTime>05/19/2014 16:45:04</publishTime>
     </File>
     <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
       <publishTime>04/21/2014 15:37:19</publishTime>
@@ -287,7 +320,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2014 18:52:39</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>05/11/2014 21:27:19</publishTime>
+      <publishTime>05/19/2014 19:39:45</publishTime>
     </File>
     <File Include="Views/Home/ShippingAndPayment.cshtml">
       <publishTime>05/15/2014 06:43:32</publishTime>
@@ -313,8 +346,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Order/Checkout.cshtml">
       <publishTime>05/14/2014 22:29:41</publishTime>
     </File>
+    <File Include="Views/Order/Manage.cshtml">
+      <publishTime>05/19/2014 12:39:39</publishTime>
+    </File>
     <File Include="Views/Order/QuickOrder.cshtml">
-      <publishTime>05/11/2014 21:59:18</publishTime>
+      <publishTime>05/18/2014 22:30:48</publishTime>
     </File>
     <File Include="Views/Order/View.cshtml">
       <publishTime>05/14/2014 22:34:31</publishTime>
@@ -323,7 +359,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2014 16:26:15</publishTime>
     </File>
     <File Include="Views/Photo/New.cshtml">
-      <publishTime>04/29/2014 16:28:50</publishTime>
+      <publishTime>05/18/2014 22:55:37</publishTime>
     </File>
     <File Include="Views/Product/Edit.cshtml">
       <publishTime>05/05/2014 13:13:41</publishTime>
@@ -338,7 +374,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2014 13:13:59</publishTime>
     </File>
     <File Include="Views/Product/ProductListWidget.cshtml">
-      <publishTime>05/15/2014 06:49:12</publishTime>
+      <publishTime>05/19/2014 18:18:47</publishTime>
     </File>
     <File Include="Views/Product/View.cshtml">
       <publishTime>05/14/2014 22:20:32</publishTime>
@@ -347,7 +383,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/05/2014 12:02:05</publishTime>
     </File>
     <File Include="Views/ProductFilter/ProductFilterWidget.cshtml">
-      <publishTime>05/14/2014 23:06:46</publishTime>
+      <publishTime>05/18/2014 21:43:52</publishTime>
     </File>
     <File Include="Views/ProductFilter/ProductOptionFilterWidget.cshtml">
       <publishTime>01/05/2014 18:23:34</publishTime>
@@ -380,16 +416,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/27/2014 14:52:25</publishTime>
     </File>
     <File Include="Views/Shared/EditorTemplates/CategoryId.cshtml">
-      <publishTime>04/24/2014 11:13:17</publishTime>
+      <publishTime>05/15/2014 19:36:55</publishTime>
     </File>
     <File Include="Views/Shared/EditorTemplates/CharacteristicId.cshtml">
       <publishTime>04/24/2014 19:04:15</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/ColorId.cshtml">
+      <publishTime>05/18/2014 22:54:30</publishTime>
     </File>
     <File Include="Views/Shared/EditorTemplates/MultilineText.cshtml">
       <publishTime>04/24/2014 10:55:30</publishTime>
     </File>
     <File Include="Views/Shared/EditorTemplates/Options.cshtml">
-      <publishTime>05/14/2014 21:59:43</publishTime>
+      <publishTime>05/15/2014 19:37:03</publishTime>
     </File>
     <File Include="Views/Shared/EditorTemplates/ParentCategoryId.cshtml">
       <publishTime>05/14/2014 18:31:45</publishTime>
@@ -404,16 +443,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/23/2014 22:18:24</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>05/15/2014 18:08:58</publishTime>
+      <publishTime>05/19/2014 19:06:52</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>05/07/2014 22:09:22</publishTime>
     </File>
     <File Include="Views/ShoppingCart/ShoppingCartWidget.cshtml">
-      <publishTime>05/15/2014 07:16:54</publishTime>
+      <publishTime>05/18/2014 22:08:13</publishTime>
     </File>
     <File Include="Views/ShoppingCart/ShowCart.cshtml">
-      <publishTime>05/14/2014 22:27:09</publishTime>
+      <publishTime>05/18/2014 22:30:58</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>04/29/2014 17:57:11</publishTime>
@@ -422,7 +461,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/21/2014 15:37:11</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/15/2014 18:53:07</publishTime>
+      <publishTime>05/19/2014 19:41:05</publishTime>
     </File>
   </ItemGroup>
 </Project>

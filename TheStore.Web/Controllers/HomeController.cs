@@ -1,6 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System.Data.Entity;
+using System.Linq;
+using System.Web.Mvc;
 using TheStore.Web.Data;
 using TheStore.Web.Infrastructure;
+using TheStore.Web.Models.Home;
 
 namespace TheStore.Web.Controllers
 {
@@ -15,7 +18,12 @@ namespace TheStore.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var model = new HomeIndexViewModel
+            {
+                LatestProducts = _context.Products.Include(x => x.Photos).OrderBy(x => x.CreatedAt).Take(12).ToList()
+            };
+
+            return View(model);
         }
 
         public ActionResult About()

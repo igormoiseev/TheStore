@@ -257,6 +257,7 @@
     <Compile Include="Models\Characteristic\NewCharacteristicForm.cs" />
     <Compile Include="Models\Category\EditCategoryForm.cs" />
     <Compile Include="Models\Category\NewCategoryForm.cs" />
+    <Compile Include="Models\Home\HomeIndexViewModel.cs" />
     <Compile Include="Models\Option\EditOptionForm.cs" />
     <Compile Include="Models\Option\NewOptionForm.cs" />
     <Compile Include="Models\Order\OrderCheckoutViewModel.cs" />
@@ -276,6 +277,8 @@
     <Content Include="Content\bootstrap-theme-cerulean.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\Baby-Stroller-icon.png" />
     <Content Include="Content\Images\logo-elephant-64x64.png" />
     <Content Include="Content\Images\stock-photo-happy-child-outdoors-in-spring-sunflower-field-173333366.jpg" />
@@ -284,12 +287,17 @@
     <Content Include="Content\Images\stock-photo-playing-room-for-chidren-as-colorful-theme-120744448.jpg" />
     <Content Include="Content\Images\stock-photo-spring-landscape-made-from-toy-clay-152494976.jpg" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Mvc.sitemap" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
