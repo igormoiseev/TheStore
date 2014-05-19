@@ -13,6 +13,7 @@ using TheStore.Web.Models.Order;
 
 namespace TheStore.Web.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class OrderController : TheStoreController
     {
         private readonly ApplicationDbContext _context;
@@ -34,6 +35,13 @@ namespace TheStore.Web.Controllers
             }
 
             return View(order);
+        }
+
+        public ActionResult Manage()
+        {
+            var orders = _context.Orders.Include(x => x.OrderItems).Include(x => x.Customer).OrderBy(x => x.CreatedAt).ToList();
+
+            return View(orders);
         }
 
         public ActionResult QuickOrder(string returnUrl)

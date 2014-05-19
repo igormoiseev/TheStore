@@ -383,6 +383,7 @@
     <Content Include="Views\Home\ShippingAndPayment.cshtml" />
     <Content Include="Views\Home\Warranty.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ColorId.cshtml" />
+    <Content Include="Views\Order\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,55 @@
+﻿@using System.Activities.Expressions
+@using TheStore.Web.Domain
+@model IEnumerable<TheStore.Web.Domain.Order>
+
+@{
+    ViewBag.Title = "Заказы";
+}
+
+<h2>Заказы</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">Номер</th>
+            <th>Товар</th>
+            <th>Контакт</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>
+                    @order.OrderNumber
+                </td>
+                <td>
+                    <ol class="small">
+                        @foreach (var orderItem in order.OrderItems)
+                        {
+                            <li><strong>@orderItem.Product.Name</strong> - @orderItem.Quantity шт.</li>
+                        }
+                    </ol>
+                </td>
+                <td>
+                    @string.Format("{0} {1} ({2})", order.Customer.FirstName, order.Customer.LastName, order.Customer.FullName)<br />
+                    @order.Customer.Phone <br />
+                    @order.Customer.Email
+                </td>
+                <td>
+                    @switch (order.OrderState)
+                    {
+                        case OrderState.New:
+                            <span class="label label-info">Новый</span>
+                            break;
+                        case OrderState.QuickOrder:
+                            <span class="label label-primary">Быстрый заказ</span>
+                            break;
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

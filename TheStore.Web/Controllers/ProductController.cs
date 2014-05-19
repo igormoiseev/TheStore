@@ -14,6 +14,7 @@ using TheStore.Web.Models.Product;
 
 namespace TheStore.Web.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ProductController : TheStoreController
     {
         private readonly ApplicationDbContext _context;
@@ -28,6 +29,7 @@ namespace TheStore.Web.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult View(string categoryUrl, string brandUrl, string productUrl)
         {
             var model = _context.Products.SingleOrDefault(x => x.Url == productUrl);
@@ -43,6 +45,7 @@ namespace TheStore.Web.Controllers
         }
 
         [ChildActionOnly]
+        [AllowAnonymous]
         public ActionResult ProductListWidget(ProductFilter productFilter, string categoryUrl, string brandUrl)
         {
             var category = _context.Categories.Include(x => x.Categories).SingleOrDefault(x => x.CategoryUrl == categoryUrl);
