@@ -3,7 +3,7 @@
     ViewBag.Title = @Model.Name;
 }
 
-<div class="row">
+<div class="container">
     <div class="col-md-3">
         @Html.Action("ProductFilterWidget", "ProductFilter", new {categoryUrl = Model.Category.CategoryUrl})
     </div>
