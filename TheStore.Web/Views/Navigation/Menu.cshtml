@@ -1,55 +1,76 @@
 ﻿@model IEnumerable<TheStore.Web.Domain.Category>
 @if (Model != null)
 {
-    foreach (var category in Model.Where(x => x.ParentCategoryId == null).OrderBy(x => x.SequenceNumber))
-    {
-        if (category.Categories.Any())
+    <ul class="nav navbar-nav">
+        @foreach (var category in Model.Where(x => x.ParentCategoryId == null).OrderBy(x => x.SequenceNumber))
         {
-            <li class="dropdown">
-                <a href="@Url.Action("Index", "Category", new { categoryUrl = category.CategoryUrl })" class="dropdown-toggle" data-toggle="dropdown">@category.Name <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    @foreach (var childCategory in category.Categories.OrderBy(x => x.Name))
-                    {
-                        <li>
-                            <a href="@Url.Action("Index", "Category", new { categoryUrl = childCategory.CategoryUrl })">@childCategory.Name</a>
+            if (category.Categories.Any())
+            {
+                <li class="dropdown">
+                    <a href="@Url.Action("Index", "Category", new { categoryUrl = category.CategoryUrl })" class="dropdown-toggle" data-toggle="dropdown">@category.Name &nbsp; <i class="fa fa-angle-down"></i></a>
+                    <ul class="dropdown-menu mega-dropdown-menu container" style="width: 650px; margin-top: 20px; border-top-left-radius: 4px; border-top-right-radius: 4px;">
+                        <li class="col-md-4">
+                            <ul class="list-unstyled">
+                                <li class="menu-header"><h4>Новинки</h4></li>
+                                <div id="myCarousel" class="carousel slide hidden-xs" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        @if (category.GetAllProducts().Any())
+                                        {
+                                            var firstProduct = @category.GetAllProducts().OrderByDescending(x => x.CreatedAt).First();
+                                            <div class="item active text-center">
+                                                <a href="@Url.Action("View", "Product", new {categoryUrl = firstProduct.Category.CategoryUrl, brandUrl = firstProduct.Brand.BrandUrl, productUrl = firstProduct.Url })"><img src="@firstProduct.Photos.First().Src" class="img-responsive" alt="product 1"></a>
+                                                <h5><a href="@Url.Action("View", "Product", new {categoryUrl = firstProduct.Category.CategoryUrl, brandUrl = firstProduct.Brand.BrandUrl, productUrl = firstProduct.Url })">@firstProduct.Name</a></h5>
+                                                <button class="btn btn-primary btn-xs" type="button">@firstProduct.GetProductPrice() грн.</button>
+                                                <a href="@Url.Action("View", "Product", new {categoryUrl = firstProduct.Category.CategoryUrl, brandUrl = firstProduct.Brand.BrandUrl, productUrl = firstProduct.Url })" class="btn btn-success btn-xs">Посмотреть</a>
+                                            </div><!-- End Item -->
+                                            foreach (var product in category.GetAllProducts().OrderByDescending(x => x.CreatedAt).Skip(1).Take(4))
+                                            {
+                                                <div class="item text-center">
+                                                    <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })"><img src="@product.Photos.First().Src" class="img-responsive" alt="product 1"></a>
+                                                    <h5><a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">@product.Name</a></h5>
+                                                    <button class="btn btn-primary btn-xs" type="button">@product.GetProductPrice() грн.</button>
+                                                    <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })" class="btn btn-success btn-xs">Посмотреть</a>
+                                                </div><!-- End Item -->
+                                            }
+                                        }
+                                    </div><!-- End Carousel Inner -->
+                                </div><!-- /.carousel -->
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("Index", "Category", new { categoryUrl = category.CategoryUrl })">@category.Name <span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+                            </ul>
                         </li>
-                    }
-                </ul>
-            </li>
+                        <li class="col-md-8">
+                            <ul class="list-unstyled">
+                                @foreach (var subCategory in category.Categories.OrderBy(x => x.Name))
+                                {
+                                    <li class="col-md-6">
+                                        <ul class="list-unstyled small">
+                                            <li class="menu-header"><a href="@Url.Action("Index", "Category", new { categoryUrl = subCategory.CategoryUrl })">@subCategory.Name</a></li>
+                                            @if (subCategory.GetBrands().Any())
+                                            {
+                                                foreach (var brand in subCategory.GetBrands().OrderBy(x => x.Name))
+                                                {
+                                                    <li class="menu-item">@Html.ActionLink(brand.Name, "Index", "Brand", new { categoryUrl = subCategory.CategoryUrl, brandUrl = brand.BrandUrl }, null)</li>
+                                                }
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("Index", "Category", new { categoryUrl = category.CategoryUrl })">@category.Name</a></li>
+            }
         }
-        else
-        {
-            <li><a href="@Url.Action("Index", "Category", new { categoryUrl = category.CategoryUrl })">@category.Name</a></li>
-        }
-    }
+    </ul>
 }
-@if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
-{
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            Управление <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-            <li>
-                @Html.ActionLink("Заказы", "Manage", "Order")
-            </li>
-            <li class="divider"></li>
-            <li>
-                @Html.ActionLink("Категории", "Manage", "Category")
-            </li>
-            <li>
-                @Html.ActionLink("Характеристики", "Manage", "Characteristic")
-            </li>
-            <li>
-                @Html.ActionLink("Опции", "Manage", "Option")
-            </li>
-            <li>
-                @Html.ActionLink("Производители", "Manage", "Brand")
-            </li>
-            <li class="divider"></li>
-            <li>
-                @Html.ActionLink("Товары", "Manage", "Product")
-            </li>
-        </ul>
-    </li>
-}
+
+<ul class="nav navbar-nav navbar-right">
+    <li>@Html.ActionLink("Доставка и оплата", "ShippingAndPayment", "Home")</li>
+    <li>@Html.ActionLink("Гарантия", "Warranty", "Home")</li>
+    <li>@Html.ActionLink("Контакты", "Contact", "Home")</li>
+</ul>

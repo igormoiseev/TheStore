@@ -23,6 +23,7 @@ namespace TheStore.Web.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public ActionResult View(Guid orderUrl)
         {
             var order = _context.Orders.Include(x => x.OrderItems).SingleOrDefault(x => x.OrderUrl == orderUrl);
@@ -44,6 +45,7 @@ namespace TheStore.Web.Controllers
             return View(orders);
         }
 
+        [AllowAnonymous]
         public ActionResult QuickOrder(string returnUrl)
         {
             var form = new QuickOrderForm {ReturnUrl = returnUrl};
@@ -52,6 +54,7 @@ namespace TheStore.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult QuickOrder(ShoppingCart shoppingCart, QuickOrderForm form)
         {
             if (!ModelState.IsValid)
@@ -82,6 +85,7 @@ namespace TheStore.Web.Controllers
             return Redirect(form.ReturnUrl);
         }
 
+        [AllowAnonymous]
         public ActionResult Checkout(ShoppingCart shoppingCart, string returnUrl)
         {
             var model = new OrderCheckoutViewModel();
@@ -91,6 +95,7 @@ namespace TheStore.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult Checkout(ShoppingCart shoppingCart, OrderCheckoutViewModel model)
         {
             if (!ModelState.IsValid)

@@ -280,6 +280,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\Baby-Stroller-icon.png" />
+    <Content Include="Content\Images\logo-elephant-32x32.png" />
     <Content Include="Content\Images\logo-elephant-64x64.png" />
     <Content Include="Content\Images\stock-photo-happy-child-outdoors-in-spring-sunflower-field-173333366.jpg" />
     <Content Include="Content\Images\stock-photo-kid-or-child-keep-cloud-and-sun-in-his-hands-127421537.jpg" />
@@ -392,6 +393,7 @@
     <Content Include="Views\Home\Warranty.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ColorId.cshtml" />
     <Content Include="Views\Order\Manage.cshtml" />
+    <Content Include="Views\Account\LoginWidget.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

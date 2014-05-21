@@ -24,6 +24,13 @@ namespace TheStore.Web.Controllers
             UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
         }
 
+        [ChildActionOnly]
+        [AllowAnonymous]
+        public ActionResult LoginWidget()
+        {
+            return PartialView();
+        }
+
         public UserManager<ApplicationUser> UserManager { get; private set; }
 
         //

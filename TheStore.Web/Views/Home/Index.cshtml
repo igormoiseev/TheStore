@@ -4,130 +4,164 @@
     ViewBag.Title = "Купить игрушки Киев. Детские игрушки купить в интернет-магазине в Киеве и в Украине";
 }
 
-<div class="row">
-    <div class="container">
-        <div class="row">
-            <div class="row">
-                <div class="col-md-9">
-                    <h3>
-                        НОВИНКИ
-                    </h3>
-                </div>
-                <div class="col-md-3 text-right">
-                    <div class="controls hidden-xs">
-                        <a class="left fa fa-chevron-left btn btn-primary btn-xs" href="#carousel-example" data-slide="prev"></a>
-                        <a class="right fa fa-chevron-right btn btn-primary btn-xs" href="#carousel-example" data-slide="next"></a>
-                    </div>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h3>
+                НОВИНКИ
+            </h3>
+        </div>
+        <div class="col-md-3 text-right">
+            <div class="controls hidden-xs">
+                <a class="left fa fa-chevron-left btn btn-primary btn-xs" href="#carousel-example" data-slide="prev"></a>
+                <a class="right fa fa-chevron-right btn btn-primary btn-xs" href="#carousel-example" data-slide="next"></a>
+            </div>
+        </div>
+    </div>
+    <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="row">
+                    @foreach (var product in Model.LatestProducts.Take(4))
+                    {
+                        <div class="col-sm-3">
+                            <div class="col-item">
+                                <div class="photo">
+                                    <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">
+                                        @if (product.Photos != null && product.Photos.Count > 0)
+                                        {
+                                            <img src="@product.Photos.First().Src" alt="@product.Photos.First().Alt" />
+                                        }
+                                        else
+                                        {
+                                            <img src="http://placehold.it/300x300" alt="" />
+                                        }
+                                    </a>
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="price col-md-12">
+                                            <h5>
+                                                <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">@product.Name</a>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="text-center">
+                                        @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+                                        {
+                                            @Html.Hidden("productId", product.ProductId)
+                                            @Html.Hidden("returnUrl", ViewContext.HttpContext.Request.Url.PathAndQuery)
+                                            <span class="btn btn-info btn-sm" role="button"><strong>@product.GetProductPrice() грн.</strong></span>
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                <span class="glyphicon glyphicon-shopping-cart"></span> В корзину!
+                                            </button>
+                                        }
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-            <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <div class="row">
-                            @foreach (var product in Model.LatestProducts.Take(4))
-                            {
-                                <div class="col-sm-3">
-                                    <div class="col-item">
-                                        <div class="photo">
-                                            <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">
-                                                @if (product.Photos != null && product.Photos.Count > 0)
-                                                {
-                                                    <img src="@product.Photos.First().Src" alt="@product.Photos.First().Alt" />
-                                                }
-                                                else
-                                                {
-                                                    <img src="http://placehold.it/300x300" alt="" />
-                                                }
-                                            </a>
-                                        </div>
-                                        <div class="info">
-                                            <div class="row">
-                                                <div class="price col-md-12">
-                                                    <h5>
-                                                        <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">@product.Name</a>
-                                                    </h5>
-                                                </div>
-                                                @*<div class="rating hidden-sm col-md-6">
-                                                        <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                                        </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                                        </i><i class="fa fa-star"></i>
-                                                    </div>*@
-                                            </div>
-                                            <hr />
-                                            <div class="text-center">
-                                                @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
-                                                {
-                                                    @Html.Hidden("productId", product.ProductId)
-                                                    @Html.Hidden("returnUrl", ViewContext.HttpContext.Request.Url.PathAndQuery)
-                                                    <span class="btn btn-info btn-sm" role="button"><strong>@product.GetProductPrice() грн.</strong></span>
-                                                    <button type="submit" class="btn btn-success btn-sm">
-                                                        <span class="glyphicon glyphicon-shopping-cart"></span> В корзину!
-                                                    </button>
-                                                }
-                                            </div>
-                                            <div class="clearfix"></div>
+            <div class="item">
+                <div class="row">
+                    @foreach (var product in Model.LatestProducts.Skip(4).Take(4))
+                    {
+                        <div class="col-sm-3">
+                            <div class="col-item">
+                                <div class="photo">
+                                    <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">
+                                        @if (product.Photos != null && product.Photos.Count > 0)
+                                        {
+                                            <img src="@product.Photos.First().Src" alt="@product.Photos.First().Alt" />
+                                        }
+                                        else
+                                        {
+                                            <img src="http://placehold.it/300x300" alt="" />
+                                        }
+                                    </a>
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="price col-md-12">
+                                            <h5>
+                                                <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">@product.Name</a>
+                                            </h5>
                                         </div>
                                     </div>
+                                    <hr />
+                                    <div class="text-center">
+                                        @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+                                        {
+                                            @Html.Hidden("productId", product.ProductId)
+                                            @Html.Hidden("returnUrl", ViewContext.HttpContext.Request.Url.PathAndQuery)
+                                            <span class="btn btn-info btn-sm" role="button"><strong>@product.GetProductPrice() грн.</strong></span>
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                <span class="glyphicon glyphicon-shopping-cart"></span> В корзину!
+                                            </button>
+                                        }
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
-                            }
+                            </div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <div class="row">
-                            @foreach (var product in Model.LatestProducts.Skip(4).Take(4))
-                            {
-                                <div class="col-sm-3">
-                                    <div class="col-item">
-                                        <div class="photo">
-                                            <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">
-                                                @if (product.Photos != null && product.Photos.Count > 0)
-                                                {
-                                                    <img src="@product.Photos.First().Src" alt="@product.Photos.First().Alt" />
-                                                }
-                                                else
-                                                {
-                                                    <img src="http://placehold.it/300x300" alt="" />
-                                                }
-                                            </a>
-                                        </div>
-                                        <div class="info">
-                                            <div class="row">
-                                                <div class="price col-md-12">
-                                                    <h5>
-                                                        <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">@product.Name</a>
-                                                    </h5>
-                                                </div>
-                                                @*<div class="rating hidden-sm col-md-6">
-                                        <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                        </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                        </i><i class="fa fa-star"></i>
-                                    </div>*@
-                                            </div>
-                                            <hr />
-                                            <div class="text-center">
-                                                @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
-                                                {
-                                                    @Html.Hidden("productId", product.ProductId)
-                                                    @Html.Hidden("returnUrl", ViewContext.HttpContext.Request.Url.PathAndQuery)
-                                                    <span class="btn btn-info btn-sm" role="button"><strong>@product.GetProductPrice() грн.</strong></span>
-                                                    <button type="submit" class="btn btn-success btn-sm">
-                                                        <span class="glyphicon glyphicon-shopping-cart"></span> В корзину!
-                                                    </button>
-                                                }
-                                            </div>
-                                            <div class="clearfix"></div>
+                    }
+                </div>
+            </div>
+            <div class="item">
+                <div class="row">
+                    @foreach (var product in Model.LatestProducts.Skip(8).Take(4))
+                    {
+                        <div class="col-sm-3">
+                            <div class="col-item">
+                                <div class="photo">
+                                    <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">
+                                        @if (product.Photos != null && product.Photos.Count > 0)
+                                        {
+                                            <img src="@product.Photos.First().Src" alt="@product.Photos.First().Alt" />
+                                        }
+                                        else
+                                        {
+                                            <img src="http://placehold.it/300x300" alt="" />
+                                        }
+                                    </a>
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="price col-md-12">
+                                            <h5>
+                                                <a href="@Url.Action("View", "Product", new {categoryUrl = product.Category.CategoryUrl, brandUrl = product.Brand.BrandUrl, productUrl = product.Url })">@product.Name</a>
+                                            </h5>
                                         </div>
                                     </div>
+                                    <hr />
+                                    <div class="text-center">
+                                        @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+                                        {
+                                            @Html.Hidden("productId", product.ProductId)
+                                            @Html.Hidden("returnUrl", ViewContext.HttpContext.Request.Url.PathAndQuery)
+                                            <span class="btn btn-info btn-sm" role="button"><strong>@product.GetProductPrice() грн.</strong></span>
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                <span class="glyphicon glyphicon-shopping-cart"></span> В корзину!
+                                            </button>
+                                        }
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
-                            }
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
-
-        <hr />
-
-        @Html.Action("CategoryWidget", "Category")
     </div>
+
+    <hr />
+
+    @Html.Action("CategoryWidget", "Category")
 </div>
