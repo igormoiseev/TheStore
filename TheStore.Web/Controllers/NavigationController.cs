@@ -22,18 +22,5 @@ namespace TheStore.Web.Controllers
 
             return PartialView(_context.Categories.Include(x => x.Categories).Include(x => x.Products).ToList());
         }
-
-        private List<Brand> GetBrands(Category category)
-        {
-            var result = new List<Brand>();
-
-            if (category.Products.Any())
-            {
-                var brands = (from product in category.Products select product.Brand).Distinct().ToList();
-                result.AddRange(brands);
-            }
-
-            return result;
-        }
     }
 }

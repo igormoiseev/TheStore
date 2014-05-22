@@ -18,11 +18,20 @@
                                         {
                                             var firstProduct = @category.GetAllProducts().OrderByDescending(x => x.CreatedAt).First();
                                             <div class="item active text-center">
-                                                <a href="@Url.Action("View", "Product", new {categoryUrl = firstProduct.Category.CategoryUrl, brandUrl = firstProduct.Brand.BrandUrl, productUrl = firstProduct.Url })"><img src="@firstProduct.Photos.First().Src" class="img-responsive" alt="product 1"></a>
+                                                <a href="@Url.Action("View", "Product", new {categoryUrl = firstProduct.Category.CategoryUrl, brandUrl = firstProduct.Brand.BrandUrl, productUrl = firstProduct.Url })">
+                                                    @if (firstProduct.Photos.Any())
+                                                    {
+                                                        <img src="@firstProduct.Photos.First().Src" class="img-responsive" alt="product 1"/>
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="http://placehold.it/300x300" class="img-responsive" alt="product 1"/>
+                                                    }
+                                                </a>
                                                 <h5><a href="@Url.Action("View", "Product", new {categoryUrl = firstProduct.Category.CategoryUrl, brandUrl = firstProduct.Brand.BrandUrl, productUrl = firstProduct.Url })">@firstProduct.Name</a></h5>
                                                 <button class="btn btn-primary btn-xs" type="button">@firstProduct.GetProductPrice() грн.</button>
                                                 <a href="@Url.Action("View", "Product", new {categoryUrl = firstProduct.Category.CategoryUrl, brandUrl = firstProduct.Brand.BrandUrl, productUrl = firstProduct.Url })" class="btn btn-success btn-xs">Посмотреть</a>
-                                            </div><!-- End Item -->
+                                            </div>
                                             foreach (var product in category.GetAllProducts().OrderByDescending(x => x.CreatedAt).Skip(1).Take(4))
                                             {
                                                 <div class="item text-center">
@@ -38,6 +47,7 @@
                                 <li class="divider"></li>
                                 <li><a href="@Url.Action("Index", "Category", new { categoryUrl = category.CategoryUrl })">@category.Name <span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
                             </ul>
+
                         </li>
                         <li class="col-md-8">
                             <ul class="list-unstyled">

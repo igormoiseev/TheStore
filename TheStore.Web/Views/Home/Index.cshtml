@@ -22,7 +22,7 @@
         <div class="carousel-inner">
             <div class="item active">
                 <div class="row">
-                    @foreach (var product in Model.LatestProducts.Take(4))
+                    @foreach (var product in Model.LatestProducts.OrderByDescending(x => x.CreatedAt).Take(4))
                     {
                         <div class="col-sm-3">
                             <div class="col-item">
@@ -67,7 +67,7 @@
             </div>
             <div class="item">
                 <div class="row">
-                    @foreach (var product in Model.LatestProducts.Skip(4).Take(4))
+                    @foreach (var product in Model.LatestProducts.OrderByDescending(x => x.CreatedAt).Skip(4).Take(4))
                     {
                         <div class="col-sm-3">
                             <div class="col-item">
@@ -112,7 +112,7 @@
             </div>
             <div class="item">
                 <div class="row">
-                    @foreach (var product in Model.LatestProducts.Skip(8).Take(4))
+                    @foreach (var product in Model.LatestProducts.OrderByDescending(x => x.CreatedAt).Skip(8).Take(4))
                     {
                         <div class="col-sm-3">
                             <div class="col-item">
