@@ -20,7 +20,7 @@ namespace TheStore.Web.Controllers
         {
             var model = new HomeIndexViewModel
             {
-                LatestProducts = _context.Products.Include(x => x.Photos).OrderBy(x => x.CreatedAt).Take(12).ToList()
+                LatestProducts = _context.Products.Include(x => x.Photos).OrderByDescending(x => x.CreatedAt).Take(12).ToList()
             };
 
             return View(model);

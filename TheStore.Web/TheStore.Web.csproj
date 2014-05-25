@@ -188,6 +188,7 @@
     <Compile Include="Controllers\BrandController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CharacteristicController.cs" />
+    <Compile Include="Controllers\ColorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\OptionController.cs" />
@@ -257,6 +258,7 @@
     <Compile Include="Models\Characteristic\NewCharacteristicForm.cs" />
     <Compile Include="Models\Category\EditCategoryForm.cs" />
     <Compile Include="Models\Category\NewCategoryForm.cs" />
+    <Compile Include="Models\Color\NewColorForm.cs" />
     <Compile Include="Models\Home\HomeIndexViewModel.cs" />
     <Compile Include="Models\Option\EditOptionForm.cs" />
     <Compile Include="Models\Option\NewOptionForm.cs" />
@@ -394,6 +396,8 @@
     <Content Include="Views\Shared\EditorTemplates\ColorId.cshtml" />
     <Content Include="Views\Order\Manage.cshtml" />
     <Content Include="Views\Account\LoginWidget.cshtml" />
+    <Content Include="Views\Color\Manage.cshtml" />
+    <Content Include="Views\Color\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<TheStore.Web.Domain.Color>
+
+@{
+    ViewBag.Title = "Управление цветами";
+}
+
+<div class="container">
+    <h2>Цвета</h2>
+    <hr />
+    <p>
+        <a href="@Url.Action("New", "Color")" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus-sign"></span> Добавить цвет</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Название</th>
+                <th class="text-center">Редактировать / Удалить</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var color in @Model)
+            {
+                <tr>
+                    <td>@color.ColorId</td>
+                <td>@color.Name</td>
+                <td class="text-center">
+                    <a class='btn btn-info btn-sm' href="@Url.Action("Edit", "Color", new { id = color.ColorId })"><span class="glyphicon glyphicon-edit"></span> Редактировать</a>
+                    <a href="@Url.Action("Delete", "Color", new { id = color.ColorId })" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Удалить</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

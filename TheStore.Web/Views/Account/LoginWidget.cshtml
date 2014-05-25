@@ -36,48 +36,14 @@
                 <li>
                     @Html.ActionLink("Товары", "Manage", "Product")
                 </li>
+                <li>
+                    @Html.ActionLink("Цвета", "Manage", "Color")
+                </li>
             }
             <li class="divider"></li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()"> <span class="glyphicon glyphicon-log-out"></span> Выйти</a></li>
         </ul>
     </div>
-    @*<div class="btn-group" style="z-index: 1000;">
-            <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                <span class="glyphicon glyphicon-user"></span> &nbsp; @User.Identity.GetUserName() &nbsp;<span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu text-left" role="menu">
-                <li><a href="#">Профиль</a></li>
-                <li><a href="#">История заказов</a></li>
-                @if (User.IsInRole("Administrator"))
-                {
-                    <li class="divider"></li>
-                    <li>
-                        @Html.ActionLink("Заказы", "Manage", "Order")
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        @Html.ActionLink("Категории", "Manage", "Category")
-                    </li>
-                    <li>
-                        @Html.ActionLink("Характеристики", "Manage", "Characteristic")
-                    </li>
-                    <li>
-                        @Html.ActionLink("Опции", "Manage", "Option")
-                    </li>
-                    <li>
-                        @Html.ActionLink("Производители", "Manage", "Brand")
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        @Html.ActionLink("Товары", "Manage", "Product")
-                    </li>
-                }
-                <li class="divider"></li>
-                <li>
-                    <a href="javascript:document.getElementById('logoutForm').submit()"> <span class="glyphicon glyphicon-log-out"></span> Выйти</a>
-                </li>
-            </ul>
-        </div>*@
 }
 else
 {
