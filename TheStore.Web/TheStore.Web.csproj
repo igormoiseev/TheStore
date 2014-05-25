@@ -258,6 +258,7 @@
     <Compile Include="Models\Characteristic\NewCharacteristicForm.cs" />
     <Compile Include="Models\Category\EditCategoryForm.cs" />
     <Compile Include="Models\Category\NewCategoryForm.cs" />
+    <Compile Include="Models\Color\EditColorForm.cs" />
     <Compile Include="Models\Color\NewColorForm.cs" />
     <Compile Include="Models\Home\HomeIndexViewModel.cs" />
     <Compile Include="Models\Option\EditOptionForm.cs" />
@@ -398,6 +399,7 @@
     <Content Include="Views\Account\LoginWidget.cshtml" />
     <Content Include="Views\Color\Manage.cshtml" />
     <Content Include="Views\Color\New.cshtml" />
+    <Content Include="Views\Color\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,5 @@
-﻿using Microsoft.Web.Mvc;
+﻿using AutoMapper.QueryableExtensions;
+using Microsoft.Web.Mvc;
 using System.Linq;
 using System.Web.Mvc;
 using TheStore.Web.Data;
@@ -49,6 +50,40 @@ namespace TheStore.Web.Controllers
             _context.SaveChanges();
 
             return this.RedirectToAction(x => x.Manage()).WithSuccess(string.Format("Добавлен новый цвет \"{0}\"", form.Name));
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var model = _context.Colors.Project<Color>().To<EditColorForm>().SingleOrDefault(i => i.ColorId == id);
+            if (model == null)
+            {
+                return
+                    this.RedirectToAction(x => x.Manage())
+                        .WithError(string.Format("Цвет c ID ({0}) не найден. Возможно он был удален.", id));
+            }
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken, Log("Update characteristic {id}")]
+        public ActionResult Edit(EditColorForm form)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(form);
+            }
+
+            var color = _context.Colors.SingleOrDefault(x => x.ColorId == form.ColorId);
+            if (color == null)
+            {
+                return
+                    this.RedirectToAction(x => x.Manage())
+                        .WithError(string.Format("Цвет c ID ({0}) не найден. Возможно он был удален.", form.ColorId));
+            }
+
+            color.Name = form.Name;
+
+            return this.RedirectToAction(x => x.Manage()).WithSuccess(string.Format("Цвет \"{0}\" обновлен.", form.Name));
         }
 
         [Log("Delete color {id}")]

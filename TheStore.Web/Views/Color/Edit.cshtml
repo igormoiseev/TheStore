@@ -1,0 +1,26 @@
+﻿@model TheStore.Web.Models.Color.EditColorForm
+@{
+    ViewBag.Title = string.Format("Редактирование цвета \"{0}\"", Model.Name);
+}
+
+<h2>Редактирование цвета &laquo;@Model.Name&raquo;</h2>
+<hr />
+
+@using (Html.BeginForm("Edit", "Color", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    @Html.HiddenFor(x => x.ColorId)
+    <div class="form-group">
+        @Html.LabelFor(x => x.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => x.Name)
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Сохранить цвет" class="btn btn-primary" />
+        </div>
+    </div>
+}
