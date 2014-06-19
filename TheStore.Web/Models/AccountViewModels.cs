@@ -30,33 +30,33 @@ namespace TheStore.Web.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Поле 'Логин' является обязательным для ввода")]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле 'Пароль' является обязательным для ввода")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Не выходить из системы")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
-        [Required]
-        [Display(Name = "User name")]
+        [Required(ErrorMessage = "Поле 'Логин' является обязательным для ввода")]
+        [Display(Name = "Логин или Эл. почта")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле 'Пароль' является обязательным для ввода")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Подтверждение пароля")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
